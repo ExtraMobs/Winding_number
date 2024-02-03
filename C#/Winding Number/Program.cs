@@ -17,7 +17,7 @@ class Program
         {
             Console.WriteLine(points.Count() + 1 + ".");
             Console.Write("    X ->");
-            command = Console.ReadLine();
+            command = Console.ReadLine().Replace(" ", "").Replace(",", ".");
             if (command == "")
             {
                 break;
@@ -25,7 +25,7 @@ class Program
             X = float.Parse(command);
 
             Console.Write("    Y ->");
-            command = Console.ReadLine();
+            command = Console.ReadLine().Replace(" ", "").Replace(",", ".");
             if (command == "")
             {
                 break;
@@ -36,25 +36,28 @@ class Program
             points.Add([X, Y]);
         }
 
+        Polygon2D polygon = new Polygon2D(points.ToArray());
+
         while (true)
         {
             Console.WriteLine("\n\nInforme qual a posição do seu ponto.");
             Console.Write("    X ->");
-            command = Console.ReadLine();
+            command = Console.ReadLine().Replace(" ", "").Replace(",", ".");
             if (command == "")
             {
                 break;
             }
             X = float.Parse(command);
+
             Console.Write("    Y ->");
-            command = Console.ReadLine();
+            command = Console.ReadLine().Replace(" ", "").Replace(",", ".");
             if (command == "")
             {
                 break;
             }
             Y = float.Parse(command);
 
-            if (new Polygon2D(points.ToArray()).CheckPointInside(new Point(X, Y)))
+            if (polygon.CheckPointCollide(new Point(X, Y)))
             {
                 Console.WriteLine("\n\nSeu ponto está DENTRO do polígono.");
             } else {

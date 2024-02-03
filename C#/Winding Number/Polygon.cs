@@ -25,12 +25,16 @@ namespace Polygon
 
         public Polygon2D(float[][] points)
         {
+            if (points.Count() < 3)
+            {
+                throw new Exception("O polígono deve ter no mínimo 3 vértices.");
+            }
             Edges = MakeEdges(
                 Vertices = MakePoints(points).ToArray()
             ).ToArray();
         }
     
-        public bool CheckPointInside(Point point)
+        public bool CheckPointCollide(Point point)
         {
             int laps = 0;
             
@@ -39,7 +43,6 @@ namespace Polygon
                 if (edge.HorizontallyBehind(point.X) && edge.BetweenYCoords(point.Y))
                 {
                     laps += edge.Orientation;
-                    Console.WriteLine(laps);
                 }
             }
             return laps != 0;
